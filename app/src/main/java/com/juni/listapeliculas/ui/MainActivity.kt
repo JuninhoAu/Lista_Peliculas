@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), ListFragment.ItemSelectListener,LoginF
     }
 
     override fun onItemSelected(movie: Movie) {
-        findNavController(R.id.main_navigation_container).navigate(ListFragmentDirections.actionListFragmentToMovieFragment2())
+        findNavController(R.id.main_navigation_container).navigate(ListFragmentDirections.actionListFragmentToMovieFragment2(movie))
     }
 
     override fun showMovieList() {

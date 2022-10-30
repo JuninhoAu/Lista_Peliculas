@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.juni.listapeliculas.data.model.Movie
@@ -16,6 +17,8 @@ import java.lang.ClassCastException
 
 
 class ListFragment : Fragment() {
+
+
 
     interface ItemSelectListener{
         fun onItemSelected(photos: Movie)
@@ -32,7 +35,6 @@ class ListFragment : Fragment() {
             throw ClassCastException("$context debe implementar ItemSelectListerner")
         }
     }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?
 

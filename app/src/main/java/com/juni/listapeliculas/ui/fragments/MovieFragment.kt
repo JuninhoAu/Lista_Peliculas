@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -21,6 +22,7 @@ import com.juni.listapeliculas.data.model.Movie
 
 class MovieFragment : Fragment() {
 
+    private val args:MovieFragmentArgs by navArgs()
 
     private lateinit var imageView: ImageView
     private lateinit var loadingWheel: ProgressBar
@@ -32,41 +34,36 @@ class MovieFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-    //    val rootView= FragmentPhotosBinding.inflate(inflater)
         val  viewRoot= inflater.inflate(R.layout.fragment_movie_details, container, false)
 
-
-        //  imageView=rootView.imgRover
         imageView=viewRoot.findViewById(R.id.imgv_rover)
         loadingWheel=viewRoot.findViewById(R.id.loading_wheel)
 
+        val movie=args.movie
 
-       // imageView.setImageURI(Uri.parse("https://lh3.googleusercontent.com/pw/ACtC-3f0oCTWqcLqOb47XI0cxmjWDfjbiLke0maPSPdC4jY_4PKdJIBAyQXV__sYUDbrfRctynBCdAN5selEMQPwOnI_kyioqhpGaqTBTTJP6FFPFF37coJUzb0MP5aSZIhjiXxVLRznFIVw_DbsyJNe1jLS=w1250-h938-no"))
+        val movieTitle =movie.title
+        val releaseDate=movie.releaseDate
+        val movieRe=movie.releaseDate
+        val voteAverage=movie.voteAverage
+        val posterPath=movie.posterPath
+        setPhotos(posterPath)
 
         return viewRoot
     }
 
-    fun setPhotos(photos: Movie){
-
-       // Log.d("Hola",photos.img_src)
-
-       // Toast.makeText(activity,photos.img_src, Toast.LENGTH_SHORT).show()
+    fun setPhotos(posterPath: String){
         loadingWheel.visibility=View.VISIBLE
 
-        Glide.with(this).load("https://image.tmdb.org/t/p/w500/"+photos.posterPath).listener(object : RequestListener<Drawable> {
+        Glide.with(this).load("https://image.tmdb.org/t/p/w500/"+posterPath).listener(object : RequestListener<Drawable> {
 
             override fun onLoadFailed(e: GlideException?,
                                       model: Any?,
                                       target: Target<Drawable>?,
                                       isFirstResource: Boolean): Boolean {
 
-
-
                 showMsg("carga fallida"+e)
                 Log.d("Hola","error:  "+e)
                 loadingWheel.visibility=View.GONE
-
-
 
                 return false
             }
@@ -77,21 +74,19 @@ class MovieFragment : Fragment() {
                                          dataSource: DataSource?,
                                          isFirstResource: Boolean): Boolean {
 
-
-
                 loadingWheel.visibility=View.GONE
 
                 return false
             }
 
 
-        })//.error(R.drawable.ic_launcher_background)
+        })
+        //.error(R.drawable.ic_launcher_background)
         .into(imageView)
 
     }
 
     private fun showMsg(mensaje:String){
-
         Toast.makeText(activity,mensaje,Toast.LENGTH_SHORT).show()
 
     }
