@@ -2,19 +2,18 @@ package com.juni.listapeliculas.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.juni.listapeliculas.R
 import com.juni.listapeliculas.data.model.Movie
 import com.juni.listapeliculas.databinding.ActivityMainBinding
-import com.juni.listapeliculas.ui.viewmodel.MainViewModel
 import com.juni.listapeliculas.ui.fragments.ListFragment
-import com.juni.listapeliculas.ui.fragments.MovieFragment
+import com.juni.listapeliculas.ui.fragments.ListFragmentDirections
+import com.juni.listapeliculas.ui.fragments.ui.login.LoginFragment
+import com.juni.listapeliculas.ui.fragments.ui.login.LoginFragmentDirections
 
-class MainActivity : AppCompatActivity(), ListFragment.ItemSelectListener {
+class MainActivity : AppCompatActivity(), ListFragment.ItemSelectListener,LoginFragment.ListSelectListener {
 
     private lateinit var binding: ActivityMainBinding
-    lateinit var movieFragment: MovieFragment
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,17 +22,14 @@ class MainActivity : AppCompatActivity(), ListFragment.ItemSelectListener {
         setContentView(binding.root)
 
 
-
-        movieFragment=supportFragmentManager.findFragmentById(R.id.rover_photos) as MovieFragment
-        // binding.roverRecycle.layoutManager=LinearLayoutManager(this)
-        val viewModel= ViewModelProvider(this)[MainViewModel::class.java]
-
-
-
     }
 
     override fun onItemSelected(movie: Movie) {
-        movieFragment.setPhotos(movie)
+        findNavController(R.id.main_navigation_container).navigate(ListFragmentDirections.actionListFragmentToMovieFragment2())
+    }
+
+    override fun showMovieList() {
+        findNavController(R.id.main_navigation_container).navigate(LoginFragmentDirections.actionLoginFragmentToListFragment())
     }
 
 
