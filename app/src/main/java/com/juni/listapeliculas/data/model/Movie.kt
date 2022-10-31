@@ -9,6 +9,8 @@ import kotlinx.android.parcel.Parcelize
 data class Movie(
     @SerializedName("id")
     val id: Int,
+    @SerializedName("overview")
+    val overview: String,
     @SerializedName("poster_path")
     val posterPath: String,
     @SerializedName("release_date")
@@ -19,5 +21,5 @@ data class Movie(
     val voteAverage: Double,
 
 ):Parcelable{
-    constructor():this(0,"","","",0.0)
+    constructor():this(0,"","","","",0.0)
 }

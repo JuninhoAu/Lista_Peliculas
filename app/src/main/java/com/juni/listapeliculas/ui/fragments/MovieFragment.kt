@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -25,7 +26,13 @@ class MovieFragment : Fragment() {
     private val args:MovieFragmentArgs by navArgs()
 
     private lateinit var imageView: ImageView
-    private lateinit var loadingWheel: ProgressBar
+    private lateinit var name: TextView
+    private lateinit var fecha: TextView
+    private lateinit var voto: TextView
+    private lateinit var des: TextView
+
+
+
 
 
 
@@ -37,22 +44,30 @@ class MovieFragment : Fragment() {
         val  viewRoot= inflater.inflate(R.layout.fragment_movie_details, container, false)
 
         imageView=viewRoot.findViewById(R.id.imgv_rover)
-        loadingWheel=viewRoot.findViewById(R.id.loading_wheel)
+        name=viewRoot.findViewById(R.id.txtMovieName)
+        fecha=viewRoot.findViewById(R.id.txtMovieFecha)
+        voto=viewRoot.findViewById(R.id.txtMovieNota)
+        des=viewRoot.findViewById(R.id.txtMovieDe)
+
 
         val movie=args.movie
 
         val movieTitle =movie.title
         val releaseDate=movie.releaseDate
-        val movieRe=movie.releaseDate
         val voteAverage=movie.voteAverage
         val posterPath=movie.posterPath
+
+        name.setText(movieTitle)
+        fecha.setText(releaseDate)
+        voto.setText(voteAverage.toString())
+        des.setText(movie.overview)
+
         setPhotos(posterPath)
 
         return viewRoot
     }
 
     fun setPhotos(posterPath: String){
-        loadingWheel.visibility=View.VISIBLE
 
         Glide.with(this).load("https://image.tmdb.org/t/p/w500/"+posterPath).listener(object : RequestListener<Drawable> {
 
@@ -62,8 +77,6 @@ class MovieFragment : Fragment() {
                                       isFirstResource: Boolean): Boolean {
 
                 showMsg("carga fallida"+e)
-                Log.d("Hola","error:  "+e)
-                loadingWheel.visibility=View.GONE
 
                 return false
             }
@@ -73,9 +86,6 @@ class MovieFragment : Fragment() {
                                          target: Target<Drawable>?,
                                          dataSource: DataSource?,
                                          isFirstResource: Boolean): Boolean {
-
-                loadingWheel.visibility=View.GONE
-
                 return false
             }
 
@@ -86,8 +96,8 @@ class MovieFragment : Fragment() {
 
     }
 
-    private fun showMsg(mensaje:String){
-        Toast.makeText(activity,mensaje,Toast.LENGTH_SHORT).show()
+    private fun showMsg(message:String){
+        Toast.makeText(activity,message,Toast.LENGTH_SHORT).show()
 
     }
 
