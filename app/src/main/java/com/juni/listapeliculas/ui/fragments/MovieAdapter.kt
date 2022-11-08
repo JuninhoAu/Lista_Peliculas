@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.juni.listapeliculas.R
-import com.juni.listapeliculas.data.model.Movie
+import com.juni.listapeliculas.data.model.MovieModel
+import com.juni.listapeliculas.domain.Movie
 
 class MovieAdapter:ListAdapter<Movie, MovieAdapter.RoverViewHolder>(DiffCallback) {
 
@@ -48,14 +49,14 @@ class MovieAdapter:ListAdapter<Movie, MovieAdapter.RoverViewHolder>(DiffCallback
         private val txtId =view.findViewById<TextView>(R.id.txtexto)
         private val txtName=view.findViewById<TextView>(R.id.txtexto)
 
-        fun bind(movie: Movie){
+        fun bind(movieModel: Movie){
 
            // txtId.text=String.format("%d", movie.id)
-            txtName.text=movie.title
+            txtName.text=movieModel.title
 
             view.setOnClickListener {
                 if (::onItemClickListener.isInitialized){
-                    onItemClickListener(movie)
+                    onItemClickListener(movieModel)
                 }
             }
 

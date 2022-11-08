@@ -7,12 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.juni.listapeliculas.data.model.Movie
+import com.juni.listapeliculas.data.model.MovieModel
 import com.juni.listapeliculas.databinding.FragmentMovieListBinding
+import com.juni.listapeliculas.domain.Movie
 import com.juni.listapeliculas.ui.viewmodel.MainViewModel
+import com.juni.listapeliculas.ui.viewmodel.MainViewModelFactorys
 import java.lang.ClassCastException
 
 
@@ -21,7 +22,7 @@ class ListFragment : Fragment() {
 
 
     interface ItemSelectListener{
-        fun onItemSelected(photos: Movie)
+        fun onItemSelected(movie: Movie)
     }
 
     private lateinit var itemSelectListener: ItemSelectListener
@@ -54,7 +55,7 @@ class ListFragment : Fragment() {
 
         recycler.adapter=movieAdapter
 
-        val viewModel= ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        val viewModel= ViewModelProvider(requireActivity(),MainViewModelFactorys(requireActivity().application))[MainViewModel::class.java]
 
         movieAdapter.onItemClickListener={
 
@@ -62,7 +63,7 @@ class ListFragment : Fragment() {
         }
 
 
-        viewModel.movieList.observe(viewLifecycleOwner) {
+        viewModel.movieModelList.observe(viewLifecycleOwner) {
             movieAdapter.submitList(it)
         }
 

@@ -1,9 +1,8 @@
-package com.juni.listapeliculas.ui.fragments.ui.login
+package com.juni.listapeliculas.ui.fragments
 
 
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
-import android.opengl.Visibility
 import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import com.juni.listapeliculas.databinding.FragmentLoginBinding
 import java.lang.ClassCastException
 
@@ -67,7 +65,9 @@ class LoginFragment : Fragment() {
             var user:String= usernameEditText.text.trim().toString()
             var pass:String=passwordEditText.text.trim().toString()
             if (user.isNotEmpty() && pass.isNotEmpty()){
-                    if (user.equals("Admin") && pass.equals("Password*123")){
+                if (user.equals("Admin") && pass.equals("123")){
+
+                  //  if (user.equals("Admin") && pass.equals("Password*123")){
                         loadingProgressBar.visibility=View.GONE
                         listSelectListener.showMovieList()
                     }else{

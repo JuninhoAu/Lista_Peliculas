@@ -2,13 +2,11 @@ package com.juni.listapeliculas.ui.fragments
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
@@ -18,7 +16,6 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.juni.listapeliculas.R
-import com.juni.listapeliculas.data.model.Movie
 
 
 class MovieFragment : Fragment() {
@@ -57,8 +54,8 @@ class MovieFragment : Fragment() {
         val voteAverage=movie.voteAverage
         val posterPath=movie.posterPath
 
-        name.setText(movieTitle)
-        fecha.setText(releaseDate)
+       // name.setText(movieTitle)
+      //  fecha.setText(releaseDate)
         voto.setText(voteAverage.toString())
         des.setText(movie.overview)
 
