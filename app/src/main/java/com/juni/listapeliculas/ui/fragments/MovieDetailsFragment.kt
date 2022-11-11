@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
@@ -15,56 +16,47 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.juni.listapeliculas.R
+import com.juni.listapeliculas.databinding.FragmentMovieDetailsBinding
 
 
-class MovieFragment : Fragment() {
+class MovieDetailsFragment : Fragment() {
 
-    private val args:MovieFragmentArgs by navArgs()
-
+    private val args:MovieDetailsFragmentArgs by navArgs()
+    private lateinit var binding:FragmentMovieDetailsBinding
     private lateinit var imageView: ImageView
     private lateinit var name: TextView
     private lateinit var fecha: TextView
     private lateinit var voto: TextView
     private lateinit var des: TextView
+    private lateinit var pdMovieImage: ProgressBar
 
 
-
-
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val  viewRoot= inflater.inflate(R.layout.fragment_movie_details, container, false)
-
-        imageView=viewRoot.findViewById(R.id.imgv_rover)
-        name=viewRoot.findViewById(R.id.txtMovieName)
-        fecha=viewRoot.findViewById(R.id.txtMovieFecha)
-        voto=viewRoot.findViewById(R.id.txtMovieNota)
-        des=viewRoot.findViewById(R.id.txtMovieDe)
-
-
+        binding=FragmentMovieDetailsBinding.inflate(inflater)
+        imageView=binding.imgvRover
+        name=binding.txtMovieName
+        fecha=binding.txtMovieFecha
+        voto=binding.txtMovieNota
+        des=binding.txtMovieDe
+        pdMovieImage=binding.pbMovie
         val movie=args.movie
-
         val movieTitle =movie.title
         val releaseDate=movie.releaseDate
         val voteAverage=movie.voteAverage
         val posterPath=movie.posterPath
 
-       // name.setText(movieTitle)
-      //  fecha.setText(releaseDate)
-        voto.setText(voteAverage.toString())
-        des.setText(movie.overview)
+        name.text=movieTitle
+        fecha.text=releaseDate
+        voto.text = voteAverage.toString()
+        des.text = movie.overview
 
         setPhotos(posterPath)
 
-        return viewRoot
+        return binding.root
     }
 
-    fun setPhotos(posterPath: String){
+    private fun setPhotos(posterPath: String){
 
         Glide.with(this).load("https://image.tmdb.org/t/p/w500/"+posterPath).listener(object : RequestListener<Drawable> {
 
@@ -73,7 +65,7 @@ class MovieFragment : Fragment() {
                                       target: Target<Drawable>?,
                                       isFirstResource: Boolean): Boolean {
 
-                showMsg("carga fallida"+e)
+                showMsg("carga fallida: "+e)
 
                 return false
             }

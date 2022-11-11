@@ -65,9 +65,9 @@ class LoginFragment : Fragment() {
             var user:String= usernameEditText.text.trim().toString()
             var pass:String=passwordEditText.text.trim().toString()
             if (user.isNotEmpty() && pass.isNotEmpty()){
-                if (user.equals("Admin") && pass.equals("123")){
+               // if (user.equals("Admin") && pass.equals("123")){
 
-                  //  if (user.equals("Admin") && pass.equals("Password*123")){
+                   if (user.equals("Admin") && pass.equals("Password*123")){
                         loadingProgressBar.visibility=View.GONE
                         listSelectListener.showMovieList()
                     }else{

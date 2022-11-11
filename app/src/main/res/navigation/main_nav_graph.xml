@@ -20,12 +20,12 @@
         tools:layout="@layout/fragment_movie_list" >
         <action
             android:id="@+id/action_listFragment_to_movieFragment2"
-            app:destination="@id/movieFragment" />
+            app:destination="@id/movieDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/movieFragment"
-        android:name="com.juni.listapeliculas.ui.fragments.MovieFragment"
-        android:label="MovieFragment" >
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.juni.listapeliculas.ui.fragments.MovieDetailsFragment"
+        android:label="movieDetailsFragment" >
         <argument
             android:name="movie"
             app:argType="com.juni.listapeliculas.domain.Movie" />
